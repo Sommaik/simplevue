@@ -35,6 +35,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### app path
+```
 / public
   /home
   /about
@@ -45,3 +46,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   /user
     /list
     /form
+```
