@@ -21,22 +21,22 @@ export default new Router({
       component: Public,
       children: [
         {
-          path: '/',
+          path: '',
           name: 'home',
           component: Home,
         },
         {
-          path: '/login',
+          path: 'login',
           name: 'login',
           component: Login,
         },
         {
-          path: '/register',
+          path: 'register',
           name: 'register',
           component: Register,
         },
         {
-          path: '/about',
+          path: 'about',
           name: 'about',
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
@@ -50,15 +50,15 @@ export default new Router({
       component: Private,
       children: [
         {
-          path: '/user',
+          path: 'user',
           component: User,
           children: [
             {
-              path: '/form',
+              path: 'form',
               component: UserForm,
             },
             {
-              path: '/list',
+              path: 'list',
               component: UserList,
             },
           ],
