@@ -32,3 +32,16 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### app path
+/ public
+  /home
+  /about
+  /login
+  /register
+
+/admin  private
+  /user
+    /list
+    /form
