@@ -47,3 +47,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     /list
     /form
 ```
+
+git clone https://github.com/Sommaik/simplevue
+cd simplevue
+git pull
