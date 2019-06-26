@@ -5,7 +5,8 @@
 <script>
 export default {
   beforeRouteEnter(to, from, next) {
-    next("login");
+    // next("login");
+    next();
   }
 };
 </script>

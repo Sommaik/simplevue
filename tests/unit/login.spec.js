@@ -29,15 +29,15 @@ describe("login page", () => {
   });
 
   it("should have register button", () => {
-    const $route = {};
-    $route.replace = jest.fn();
-    $route.replace.mockImplementation(url => {
+    const $router = {};
+    $router.replace = jest.fn();
+    $router.replace.mockImplementation(url => {
       expect(url).toEqual("/register");
     });
 
     const wrapper = shallowMount(Login, {
       mocks: {
-        $route
+        $router
       }
     });
     const button = wrapper.find("#register");
@@ -58,22 +58,23 @@ describe("login page", () => {
   });
 
   it("should submit user = admin, password = admin to server", () => {
-    const $route = {
+    const $router = {
       replace: jest.fn()
     };
-    $route.replace.mockImplementation(url => {
+    $router.replace.mockImplementation(url => {
       expect(url).toEqual("/admin/user/list");
     });
 
     jest.mock("axios");
     axios.post = jest.fn();
-    axios.post.mockResolvedValue({ data: { success: true } });
+    axios.post.mockResolvedValue({ data: { success: true, msg: "xxx" } });
     jest.spyOn(window, "alert").mockImplementation(msg => {
-      console.log(msg);
+      // console.log(msg);
+      expect(msg).toEqual("warning xxx");
     });
 
     const wrapper = shallowMount(Login, {
-      mocks: { $route }
+      mocks: { $router }
     });
     const userId = wrapper.find("#userId");
     userId.setValue("admin");
