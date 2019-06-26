@@ -1,6 +1,6 @@
 import Login from "@/views/Login.vue";
 import { shallowMount } from "@vue/test-utils";
-// import axios from "axios";
+import axios from "axios";
 
 describe("login page", () => {
   it("should have user text field", () => {
@@ -62,8 +62,16 @@ describe("login page", () => {
       replace: jest.fn()
     };
     $route.replace.mockImplementation(url => {
-      expect(url).toEqual("/admin/user/form");
+      expect(url).toEqual("/admin/user/list");
     });
+
+    jest.mock("axios");
+    axios.post = jest.fn();
+    axios.post.mockResolvedValue({ data: { success: true, msg: "xxxxx" } });
+    jest.spyOn(window, "alert").mockImplementation(msg => {
+      console.log(msg);
+    });
+
     const wrapper = shallowMount(Login, {
       mocks: { $route }
     });
@@ -78,5 +86,9 @@ describe("login page", () => {
     });
     const form = wrapper.find("form");
     form.trigger("submit");
+    expect(axios.post).toBeCalledWith("http://localhost:3000/login", {
+      password: "pwd",
+      userId: "admin"
+    });
   });
 });

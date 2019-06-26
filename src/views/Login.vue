@@ -36,6 +36,7 @@ export default {
         })
         .catch(reason => {
           alert("error " + reason);
+          // console.log(reason);
         });
     }
   }
