@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container fluid>
-      <b-row>
+      <b-row class="justify-content-center">
         <b-col cols="12" sm="12" md="6" lg="4" xl="2">
           <b-form @submit.prevent="onFormSubmit">
             <b-form-group
@@ -24,7 +24,11 @@
           </b-form>
         </b-col>
       </b-row>
-      <b-button variant="link" id="register" @click="onRegisterClick">Register new account</b-button>
+      <b-row class="justify-content-center">
+        <b-col cols="12" sm="12" md="6" lg="4" xl="2">
+          <b-button variant="link" id="register" @click="onRegisterClick">Register new account</b-button>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
