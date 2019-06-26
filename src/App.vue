@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{name:'home'}">Home</router-link>|
-      <router-link to="/about">About</router-link>|
-      <router-link to="/login">Login</router-link>|
+      <router-link :to="{ name: 'home' }">Home</router-link>|
+      <router-link to="/about">About</router-link>| <router-link to="/login">Login</router-link>|
       <router-link to="/register">Register</router-link>|
       <router-link to="/admin/user/list">Test</router-link>|
       <button @click="$router.replace('/admin/user/list')">Test XX</button>
     </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 

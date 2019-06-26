@@ -1,8 +1,8 @@
 <template>
   <div>
     <form @submit.prevent="onFormSubmit">
-      <input id="userId" v-model="userId">
-      <input id="password" type="password" v-model="password">
+      <input id="userId" v-model="userId" />
+      <input id="password" v-model="password" type="password" />
       <button type="submit" @click="onFormSubmit">Login</button>
     </form>
   </div>
@@ -23,6 +23,4 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>
+<style></style>
