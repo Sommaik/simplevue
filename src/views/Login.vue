@@ -10,15 +10,28 @@
               label-for="userId"
               description="We'll never share your email with anyone else."
             >
-              <b-form-input id="userId" v-model="userId" type="text" placeholder="Enter user"></b-form-input>
+              <b-form-input
+                id="userId"
+                v-model="$v.userId.$model"
+                :state="$v.userId.$dirty ? !$v.userId.$error : null"
+                type="text"
+                placeholder="Enter user"
+              ></b-form-input>
+              <b-form-invalid-feedback id="userId-feedback">
+                This is a required field.
+              </b-form-invalid-feedback>
             </b-form-group>
             <b-form-group id="input-group-password" label="Password:" label-for="password">
               <b-form-input
                 id="password"
-                v-model="password"
+                v-model="$v.password.$model"
+                :state="$v.password.$dirty ? !$v.password.$error : null"
                 type="password"
                 placeholder="Enter Password"
               ></b-form-input>
+              <b-form-invalid-feedback id="password-feedback">
+                This is a required field and must be at least 6 characters.
+              </b-form-invalid-feedback>
             </b-form-group>
             <b-button type="submit" variant="primary">Login</b-button>
           </b-form>
@@ -26,7 +39,9 @@
       </b-row>
       <b-row class="justify-content-center">
         <b-col cols="12" sm="12" md="6" lg="4" xl="2">
-          <b-button variant="link" id="register" @click="onRegisterClick">Register new account</b-button>
+          <b-button variant="link" id="register" @click="onRegisterClick"
+            >Register new account</b-button
+          >
         </b-col>
       </b-row>
     </b-container>
@@ -35,6 +50,7 @@
 
 <script>
 import axios from "axios";
+import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   data: function() {
@@ -42,6 +58,10 @@ export default {
       userId: "",
       password: ""
     };
+  },
+  validations: {
+    userId: { required },
+    password: { required, minLength: minLength(6) }
   },
   methods: {
     onRegisterClick() {
