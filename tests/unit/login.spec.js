@@ -2,11 +2,17 @@ import Login from "@/views/Login.vue";
 import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
 import BootstrapVue from "bootstrap-vue";
 import axios from "axios";
+import Vuelidate from "vuelidate";
 
 describe("login page", () => {
-  it("should have user text field", () => {
-    const localVue = createLocalVue();
+  const localVue = createLocalVue();
+
+  beforeAll(() => {
     localVue.use(BootstrapVue);
+    localVue.use(Vuelidate);
+  });
+
+  it("should have user text field", () => {
     const wrapper = shallowMount(Login, {
       localVue
     });
@@ -15,8 +21,6 @@ describe("login page", () => {
   });
 
   it("should have password field", () => {
-    const localVue = createLocalVue();
-    localVue.use(BootstrapVue);
     const wrapper = shallowMount(Login, {
       localVue
     });
@@ -26,8 +30,6 @@ describe("login page", () => {
   });
 
   it("should have submit button", () => {
-    const localVue = createLocalVue();
-    localVue.use(BootstrapVue);
     const wrapper = mount(Login, {
       localVue
     });
@@ -36,8 +38,6 @@ describe("login page", () => {
   });
 
   it("should have register button", () => {
-    const localVue = createLocalVue();
-    localVue.use(BootstrapVue);
     const wrapper = shallowMount(Login, {
       localVue
     });
@@ -52,9 +52,6 @@ describe("login page", () => {
       expect(url).toEqual("/register");
     });
 
-    const localVue = createLocalVue();
-    localVue.use(BootstrapVue);
-
     const wrapper = shallowMount(Login, {
       localVue,
       mocks: {
@@ -66,15 +63,13 @@ describe("login page", () => {
   });
 
   it("should user = admin, password = admin", () => {
-    const localVue = createLocalVue();
-    localVue.use(BootstrapVue);
     const wrapper = mount(Login, { localVue });
     const userId = wrapper.find("#userId");
     userId.setValue("admin");
     const password = wrapper.find("#password");
     password.setValue("pwd");
 
-    expect(wrapper.vm.$data).toEqual({
+    expect(wrapper.vm.$data.userForm).toEqual({
       userId: "admin",
       password: "pwd"
     });
@@ -95,8 +90,6 @@ describe("login page", () => {
       // console.log(msg);
       expect(msg).toEqual("warning xxx");
     });
-    const localVue = createLocalVue();
-    localVue.use(BootstrapVue);
 
     const wrapper = mount(Login, {
       localVue,
@@ -105,17 +98,43 @@ describe("login page", () => {
     const userId = wrapper.find("#userId");
     userId.setValue("admin");
     const password = wrapper.find("#password");
-    password.setValue("pwd");
+    password.setValue("pwd123");
 
-    expect(wrapper.vm.$data).toEqual({
+    expect(wrapper.vm.$data.userForm).toEqual({
       userId: "admin",
-      password: "pwd"
+      password: "pwd123"
     });
     const form = wrapper.find("form");
     form.trigger("submit");
     expect(axios.post).toBeCalledWith("http://localhost:3000/login", {
-      password: "pwd",
+      password: "pwd123",
       userId: "admin"
     });
+  });
+
+  it("should valid when userId = a and password = 123456", () => {
+    const wrapper = mount(Login, {
+      localVue
+    });
+    const userId = wrapper.find("#userId");
+    userId.setValue("a");
+    const password = wrapper.find("#password");
+    password.setValue("123456");
+    expect(wrapper.vm.$v.userForm.userId.$invalid).toBe(false);
+    expect(wrapper.vm.$v.userForm.password.$invalid).toBe(false);
+    expect(wrapper.vm.$v.userForm.$invalid).toBe(false);
+  });
+
+  it("should valid when userId = a and password = a", () => {
+    const wrapper = mount(Login, {
+      localVue
+    });
+    const userId = wrapper.find("#userId");
+    userId.setValue("a");
+    const password = wrapper.find("#password");
+    password.setValue("a");
+    expect(wrapper.vm.$v.userForm.userId.$invalid).toBe(false);
+    expect(wrapper.vm.$v.userForm.password.$invalid).toBe(true);
+    expect(wrapper.vm.$v.userForm.$invalid).toBe(true);
   });
 });

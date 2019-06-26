@@ -12,26 +12,27 @@
             >
               <b-form-input
                 id="userId"
-                v-model="$v.userId.$model"
-                :state="$v.userId.$dirty ? !$v.userId.$error : null"
+                v-model="$v.userForm.userId.$model"
+                :state="$v.userForm.userId.$dirty ? !$v.userForm.userId.$error : null"
                 type="text"
                 placeholder="Enter user"
               ></b-form-input>
-              <b-form-invalid-feedback id="userId-feedback">
-                This is a required field.
-              </b-form-invalid-feedback>
+              <b-form-invalid-feedback id="userId-feedback"
+                >This is a required field.</b-form-invalid-feedback
+              >
             </b-form-group>
             <b-form-group id="input-group-password" label="Password:" label-for="password">
               <b-form-input
                 id="password"
-                v-model="$v.password.$model"
-                :state="$v.password.$dirty ? !$v.password.$error : null"
+                v-model="$v.userForm.password.$model"
+                :state="$v.userForm.password.$dirty ? !$v.userForm.password.$error : null"
                 type="password"
                 placeholder="Enter Password"
               ></b-form-input>
-              <b-form-invalid-feedback id="password-feedback">
-                This is a required field and must be at least 6 characters.
-              </b-form-invalid-feedback>
+              <b-form-invalid-feedback id="password-feedback"
+                >This is a required field and must be at least 6
+                characters.</b-form-invalid-feedback
+              >
             </b-form-group>
             <b-button type="submit" variant="primary">Login</b-button>
           </b-form>
@@ -55,13 +56,17 @@ import { required, minLength } from "vuelidate/lib/validators";
 export default {
   data: function() {
     return {
-      userId: "",
-      password: ""
+      userForm: {
+        userId: "",
+        password: ""
+      }
     };
   },
   validations: {
-    userId: { required },
-    password: { required, minLength: minLength(6) }
+    userForm: {
+      userId: { required },
+      password: { required, minLength: minLength(6) }
+    }
   },
   methods: {
     onRegisterClick() {
@@ -69,21 +74,22 @@ export default {
       this.$router.replace("/register");
     },
     onFormSubmit() {
-      axios
-        .post("http://localhost:3000/login", {
-          userId: this.userId,
-          password: this.password
-        })
-        .then(resp => {
-          if (resp.data.success) {
-            this.$router.replace("/admin/user/list");
-          } else {
-            alert("warning " + resp.data.msg);
-          }
-        })
-        .catch(reason => {
-          alert("error " + reason);
-        });
+      if (!this.$v.userForm.$invalid) {
+        axios
+          .post("http://localhost:3000/login", this.userForm)
+          .then(resp => {
+            if (resp.data.success) {
+              this.$router.replace("/admin/user/list");
+            } else {
+              alert("warning " + resp.data.msg);
+            }
+          })
+          .catch(reason => {
+            alert("error " + reason);
+          });
+      } else {
+        alert("Please do something");
+      }
     }
   }
 };
