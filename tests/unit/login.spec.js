@@ -67,7 +67,7 @@ describe("login page", () => {
 
     jest.mock("axios");
     axios.post = jest.fn();
-    axios.post.mockResolvedValue({ data: { success: true, msg: "xxxxx" } });
+    axios.post.mockResolvedValue({ data: { success: true } });
     jest.spyOn(window, "alert").mockImplementation(msg => {
       console.log(msg);
     });
