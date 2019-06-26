@@ -1,5 +1,6 @@
 import Login from "@/views/Login.vue";
 import { shallowMount } from "@vue/test-utils";
+// import axios from "axios";
 
 describe("login page", () => {
   it("should have user text field", () => {
@@ -21,6 +22,28 @@ describe("login page", () => {
     expect(button.exists()).toBe(true);
   });
 
+  it("should have register button", () => {
+    const wrapper = shallowMount(Login);
+    const button = wrapper.find("#register");
+    expect(button.exists()).toBe(true);
+  });
+
+  it("should have register button", () => {
+    const $route = {};
+    $route.replace = jest.fn();
+    $route.replace.mockImplementation(url => {
+      expect(url).toEqual("/register");
+    });
+
+    const wrapper = shallowMount(Login, {
+      mocks: {
+        $route
+      }
+    });
+    const button = wrapper.find("#register");
+    button.trigger("click");
+  });
+
   it("should user = admin, password = admin", () => {
     const wrapper = shallowMount(Login);
     const userId = wrapper.find("#userId");
@@ -35,12 +58,14 @@ describe("login page", () => {
   });
 
   it("should submit user = admin, password = admin to server", () => {
+    const $route = {
+      replace: jest.fn()
+    };
+    $route.replace.mockImplementation(url => {
+      expect(url).toEqual("/admin/user/form");
+    });
     const wrapper = shallowMount(Login, {
-      methods: {
-        onFormSubmit() {
-          console.log("on form submit in test case");
-        }
-      }
+      mocks: { $route }
     });
     const userId = wrapper.find("#userId");
     userId.setValue("admin");
@@ -51,7 +76,7 @@ describe("login page", () => {
       userId: "admin",
       password: "pwd"
     });
-    const button = wrapper.find("button");
-    button.trigger("click");
+    const form = wrapper.find("form");
+    form.trigger("submit");
   });
 });

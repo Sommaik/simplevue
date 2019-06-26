@@ -5,6 +5,7 @@
       <input id="password" v-model="password" type="password" />
       <button type="submit">Login</button>
     </form>
+    <button id="register" @click="onRegisterClick">Register new account</button>
   </div>
 </template>
 
@@ -19,6 +20,10 @@ export default {
     };
   },
   methods: {
+    onRegisterClick() {
+      console.log("in login class");
+      this.$route.replace("/register");
+    },
     onFormSubmit() {
       axios
         .post("http://localhost:3000/login", { userId: this.userId, password: this.password })
