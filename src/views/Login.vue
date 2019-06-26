@@ -20,11 +20,11 @@
                 placeholder="Enter Password"
               ></b-form-input>
             </b-form-group>
-            <button type="submit">Login</button>
+            <b-button type="submit" variant="primary">Login</b-button>
           </b-form>
         </b-col>
       </b-row>
-      <button id="register" @click="onRegisterClick">Register new account</button>
+      <b-button variant="link" id="register" @click="onRegisterClick">Register new account</b-button>
     </b-container>
   </div>
 </template>
