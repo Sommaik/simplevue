@@ -90,6 +90,7 @@
 
 <script>
 import { required, minLength, sameAs } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -110,7 +111,20 @@ export default {
     }
   },
   methods: {
-    onFormSubmit() {}
+    ...mapActions("register", ["register"]),
+    onFormSubmit() {
+      if (!this.$v.registerForm.$invalid) {
+        this.register(registerForm)
+          .then(resp => {
+            this.$router.replace("/login");
+          })
+          .catch(reason => {
+            alert(reason);
+          });
+      } else {
+        alert("Please input all field.");
+      }
+    }
   }
 };
 </script>
