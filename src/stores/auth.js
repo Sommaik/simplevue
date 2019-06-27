@@ -6,7 +6,7 @@ const Auth = {
     async login(context, user) {
       return new Promise((resolve, reject) => {
         axios
-          .post("http://localhost:3000/login", user)
+          .post(process.env.VUE_APP_REMOTE_API + "/login", user)
           .then(resp => resolve(resp.data))
           .catch(reason => reject(reason));
       });
