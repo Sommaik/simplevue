@@ -10,8 +10,7 @@ const Register = {
           .then(resp => resolve(resp.data))
           .catch(reason => reject(reason));
       });
-    }, 
-    async xx
+    }
   }
 };
 
