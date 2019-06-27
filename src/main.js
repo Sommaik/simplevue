@@ -14,5 +14,8 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  beforeCreate() {
+    this.$store.commit("auth/initial");
+  }
 }).$mount("#app");
