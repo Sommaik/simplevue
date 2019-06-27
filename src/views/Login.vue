@@ -60,9 +60,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import { required, minLength } from "vuelidate/lib/validators";
-
+import { mapActions } from "vuex";
 export default {
   data: function() {
     return {
@@ -79,6 +78,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions("auth", ["login"]),
     onRegisterClick() {
       console.log("in login class");
       this.$router.replace("/register");
@@ -86,6 +86,10 @@ export default {
     onFormSubmit() {
       if (!this.$v.userForm.$invalid) {
         // todo call login action from auth
+        // this.$store.dispatch("auth/login", this.userForm);
+        this.login(this.userForm).then(resp => {
+          console.log(resp);
+        });
       } else {
         alert("Please do something");
       }

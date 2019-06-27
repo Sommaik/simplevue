@@ -2,7 +2,7 @@ import axios from "axios";
 const Auth = {
   state: {},
   actions: {
-    async login(user) {
+    async login(context, user) {
       return new Promise((resolve, reject) => {
         axios
           .post("http://localhost:3000/login", user)
