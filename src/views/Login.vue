@@ -80,15 +80,16 @@ export default {
   methods: {
     ...mapActions("auth", ["login"]),
     onRegisterClick() {
-      console.log("in login class");
       this.$router.replace("/register");
     },
     onFormSubmit() {
       if (!this.$v.userForm.$invalid) {
-        // todo call login action from auth
-        // this.$store.dispatch("auth/login", this.userForm);
         this.login(this.userForm).then(resp => {
-          console.log(resp);
+          if (resp.success) {
+            this.$router.replace("admin/user/list");
+          } else {
+            alert("User not found..");
+          }
         });
       } else {
         alert("Please do something");

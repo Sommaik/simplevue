@@ -1,5 +1,6 @@
 import axios from "axios";
 const Auth = {
+  namespaced: true,
   state: {},
   actions: {
     async login(context, user) {
