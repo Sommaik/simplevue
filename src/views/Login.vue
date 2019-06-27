@@ -86,7 +86,7 @@ export default {
       if (!this.$v.userForm.$invalid) {
         this.login(this.userForm).then(resp => {
           if (resp.success) {
-            this.$router.replace("admin/user/list");
+            this.$router.replace("/admin/user/list");
           } else {
             alert("User not found..");
           }

@@ -1,7 +1,6 @@
 import Login from "@/views/Login.vue";
 import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
 import BootstrapVue from "bootstrap-vue";
-import axios from "axios";
 import Vuelidate from "vuelidate";
 
 describe("login page", () => {
@@ -83,15 +82,17 @@ describe("login page", () => {
       expect(url).toEqual("/admin/user/list");
     });
 
-    jest.mock("axios");
-    axios.post = jest.fn();
-    axios.post.mockResolvedValue({ data: { success: true, msg: "xxx" } });
     jest.spyOn(window, "alert").mockImplementation(msg => {
       // console.log(msg);
       expect(msg).toEqual("warning xxx");
     });
 
     const wrapper = mount(Login, {
+      methods: {
+        login() {
+          return Promise.resolve({ success: true });
+        }
+      },
       localVue,
       mocks: { $router }
     });
@@ -106,10 +107,6 @@ describe("login page", () => {
     });
     const form = wrapper.find("form");
     form.trigger("submit");
-    expect(axios.post).toBeCalledWith("http://localhost:3000/login", {
-      password: "pwd123",
-      userId: "admin"
-    });
   });
 
   it("should valid when userId = a and password = 123456", () => {
