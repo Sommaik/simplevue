@@ -54,7 +54,7 @@ export default new Router({
           component: User,
           children: [
             {
-              path: "form",
+              path: "form/:id",
               component: UserForm
             },
             {

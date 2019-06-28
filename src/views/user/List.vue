@@ -2,8 +2,10 @@
   <b-container fluid>
     <h1>User List {{ name }}</h1>
     <b-table striped hover :items="users" :fields="fields">
-      <template slot="edit">
-        <b-button variant="link" @click="onEditClick">Edit</b-button>
+      <template slot="edit" scope="row">
+        <b-button variant="link" @click="onEditClick(row.item.$loki)"
+          >Edit</b-button
+        >
       </template>
     </b-table>
   </b-container>
@@ -28,7 +30,7 @@ export default {
   methods: {
     ...mapActions("user", ["loadUser"]),
     onEditClick(id) {
-      this.$router.push("/admin/user/form");
+      this.$router.push("/admin/user/form/" + id);
     }
   }
 };

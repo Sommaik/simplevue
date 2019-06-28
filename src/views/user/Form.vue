@@ -109,9 +109,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions("user", ["getUserById"]),
+    ...mapActions("user", ["getUserById", "saveUser"]),
     onFormSubmit() {
       if (!this.$v.userForm.$invalid) {
+        this.saveUser({
+          id: this.$route.params.id,
+          body: this.userForm
+        })
+          .then(resp => this.$router.push("/admin/user/list"))
+          .catch(reason => {
+            this.errorMessage = "Something wrong please try again";
+            this.$bvModal.show("modal-alert");
+          });
       } else {
         this.errorMessage = "Please verified data";
         this.$bvModal.show("modal-alert");
@@ -119,7 +128,7 @@ export default {
     }
   },
   beforeMount() {
-    this.getUserById(1).then(resp => {
+    this.getUserById(this.$route.params.id).then(resp => {
       this.userForm = resp;
     });
   }
