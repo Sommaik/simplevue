@@ -17,7 +17,6 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "public",
       component: Public,
       children: [
         {

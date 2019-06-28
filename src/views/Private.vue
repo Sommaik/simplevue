@@ -1,17 +1,42 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown right>
+            <template slot="button-content"
+              ><em>User</em></template
+            >
+            <b-dropdown-item @click="onLogout">Sign Out</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import store from "@/store.js";
-
+import store from "@/store";
+import { mapActions } from "vuex";
 export default {
   beforeRouteEnter(to, from, next) {
     if (store.state.auth.isAuthen) {
       next();
     } else {
-      next("login");
+      next("/login");
+    }
+  },
+  methods: {
+    ...mapActions("auth", ["logout"]),
+    onLogout() {
+      this.logout().then(result => {
+        if (result) this.$router.replace("/login");
+      });
     }
   }
 };

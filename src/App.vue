@@ -1,25 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'home' }">Home</router-link>|
-      <router-link to="/about">About</router-link>| <router-link to="/login">Login</router-link>|
-      <router-link to="/register">Register</router-link>|
-      <router-link to="/admin/user/list">Test</router-link>|
-      <button @click="$router.replace('/admin/user/list')">Test XX</button>
-    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <style>
 #app {
-  /* font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50; */
+  /* text-align: center; */
+  color: #2c3e50;
 }
-#nav {
+
+/* #nav {
   padding: 30px;
 }
 
@@ -30,5 +24,5 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 </style>

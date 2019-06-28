@@ -16,6 +16,6 @@ new Vue({
   store,
   render: h => h(App),
   beforeCreate() {
-    this.$store.commit("auth/initial");
+    store.dispatch("auth/initial");
   }
 }).$mount("#app");

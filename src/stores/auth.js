@@ -1,8 +1,10 @@
 import axios from "axios";
+const SESSIONID = "USER_TOKEN";
+
 const Auth = {
   namespaced: true,
   state: {
-    isAuthen: false,
+    isAuthen: !!sessionStorage.getItem(SESSIONID),
     name: "",
     token: ""
   },
@@ -11,12 +13,13 @@ const Auth = {
       state.isAuthen = true;
       state.name = payload.name;
       state.token = payload.token;
-      sessionStorage.setItem("USER_TOKEN", payload);
+      sessionStorage.setItem(SESSIONID, JSON.stringify(payload));
     },
-    initial(state) {
-      if (sessionStorage.getItem("USER_TOKEN")) {
-        state.commit("loginsuccess", sessionStorage.getItem("USER_TOKEN"));
-      }
+    logoutsuccess(state) {
+      state.isAuthen = false;
+      state.name = "";
+      state.token = "";
+      sessionStorage.removeItem(SESSIONID);
     }
   },
   actions: {
@@ -32,6 +35,16 @@ const Auth = {
           })
           .catch(reason => reject(reason));
       });
+    },
+    async initial(context) {
+      if (sessionStorage.getItem(SESSIONID)) {
+        const payload = JSON.parse(sessionStorage.getItem(SESSIONID));
+        context.commit("loginsuccess", payload);
+      }
+    },
+    async logout(context) {
+      context.commit("logoutsuccess");
+      return Promise.resolve(true);
     }
   }
 };
