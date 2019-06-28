@@ -9,7 +9,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
             <template slot="button-content"
-              ><em>User</em></template
+              ><em>{{ name }}</em></template
             >
             <b-dropdown-item @click="onLogout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -22,7 +22,8 @@
 
 <script>
 import store from "@/store";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+
 export default {
   beforeRouteEnter(to, from, next) {
     if (store.state.auth.isAuthen) {
@@ -30,6 +31,9 @@ export default {
     } else {
       next("/login");
     }
+  },
+  computed: {
+    ...mapState("auth", ["name"])
   },
   methods: {
     ...mapActions("auth", ["logout"]),

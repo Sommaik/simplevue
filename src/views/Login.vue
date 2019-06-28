@@ -13,9 +13,7 @@
               <b-form-input
                 id="userId"
                 v-model="$v.userForm.userId.$model"
-                :state="
-                  $v.userForm.userId.$dirty ? !$v.userForm.userId.$error : null
-                "
+                :state="$v.userForm.userId.$dirty ? !$v.userForm.userId.$error : null"
                 type="text"
                 placeholder="Enter user"
               ></b-form-input>
@@ -23,19 +21,11 @@
                 >This is a required field.</b-form-invalid-feedback
               >
             </b-form-group>
-            <b-form-group
-              id="input-group-password"
-              label="Password:"
-              label-for="password"
-            >
+            <b-form-group id="input-group-password" label="Password:" label-for="password">
               <b-form-input
                 id="password"
                 v-model="$v.userForm.password.$model"
-                :state="
-                  $v.userForm.password.$dirty
-                    ? !$v.userForm.password.$error
-                    : null
-                "
+                :state="$v.userForm.password.$dirty ? !$v.userForm.password.$error : null"
                 type="password"
                 placeholder="Enter Password"
               ></b-form-input>
