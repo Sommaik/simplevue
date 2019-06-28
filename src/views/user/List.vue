@@ -7,6 +7,11 @@
           >Edit</b-button
         >
       </template>
+      <template slot="delete" scope="row">
+        <b-button variant="link" @click="deleteUser(row.item.$loki)"
+          >Delete</b-button
+        >
+      </template>
     </b-table>
   </b-container>
 </template>
@@ -20,15 +25,15 @@ export default {
   },
   data() {
     return {
-      fields: ["userId", "name", "edit"]
+      fields: ["edit", "userId", "name", "delete"]
     };
   },
   computed: {
-    ...mapState("auth", ["name", "token"]),
+    ...mapState("auth", ["name"]),
     ...mapState("user", ["users"])
   },
   methods: {
-    ...mapActions("user", ["loadUser"]),
+    ...mapActions("user", ["loadUser", "deleteUser"]),
     onEditClick(id) {
       this.$router.push("/admin/user/form/" + id);
     }

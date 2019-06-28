@@ -9,7 +9,9 @@
         <b-navbar-nav>
           <b-nav-item-dropdown text="Example">
             <b-dropdown-item to="/admin/user/list">User</b-dropdown-item>
-            <b-dropdown-item to="/admin/post">Post</b-dropdown-item>
+            <b-dropdown-item to="/admin/jsonplaceholder/users"
+              >JsonPlaceHolder</b-dropdown-item
+            >
           </b-nav-item-dropdown>
         </b-navbar-nav>
 

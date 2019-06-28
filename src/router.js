@@ -9,6 +9,8 @@ import User from "@/views/user/User.vue";
 import UserForm from "@/views/user/Form.vue";
 import UserList from "@/views/user/List.vue";
 import Post from "@/views/jsonplaceholder/Post.vue";
+import JsonPlaceHolder from "@/views/jsonplaceholder/JsonPlaceHolder.vue";
+import JPHUser from "@/views/jsonplaceholder/User.vue";
 
 Vue.use(Router);
 
@@ -64,8 +66,18 @@ export default new Router({
           ]
         },
         {
-          path: "post",
-          component: Post
+          path: "jsonplaceholder",
+          component: JsonPlaceHolder,
+          children: [
+            {
+              path: "users",
+              component: JPHUser
+            },
+            {
+              path: "posts/:userId",
+              component: Post
+            }
+          ]
         }
       ]
     }
