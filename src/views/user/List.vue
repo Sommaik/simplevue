@@ -3,7 +3,7 @@
     <h1>User List {{ name }}</h1>
     <b-table striped hover :items="users" :fields="fields">
       <template slot="edit">
-        <b-button variant="link">Edit</b-button>
+        <b-button variant="link" @click="onEditClick">Edit</b-button>
       </template>
     </b-table>
   </b-container>
@@ -26,7 +26,10 @@ export default {
     ...mapState("user", ["users"])
   },
   methods: {
-    ...mapActions("user", ["loadUser"])
+    ...mapActions("user", ["loadUser"]),
+    onEditClick(id) {
+      this.$router.push("/admin/user/form");
+    }
   }
 };
 </script>

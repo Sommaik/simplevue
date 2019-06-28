@@ -1,7 +1,6 @@
 <template>
   <b-container fluid>
-    <b-table :items="posts" :fields="['userId', 'id', 'title', 'body']">
-    </b-table>
+    <b-table :items="posts" :fields="['userId', 'id', 'title', 'body']"> </b-table>
   </b-container>
 </template>
 
@@ -20,5 +19,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
