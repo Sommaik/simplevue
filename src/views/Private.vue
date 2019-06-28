@@ -9,8 +9,10 @@
         <b-navbar-nav>
           <b-nav-item-dropdown text="Example">
             <b-dropdown-item to="/admin/user/list">User</b-dropdown-item>
+            <b-dropdown-item to="/admin/post">Post</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
+
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
             <template slot="button-content"

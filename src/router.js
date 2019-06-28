@@ -8,6 +8,7 @@ import Private from "@/views/Private.vue";
 import User from "@/views/user/User.vue";
 import UserForm from "@/views/user/Form.vue";
 import UserList from "@/views/user/List.vue";
+import Post from "@/views/jsonplaceholder/Post.vue";
 
 Vue.use(Router);
 
@@ -61,6 +62,10 @@ export default new Router({
               component: UserList
             }
           ]
+        },
+        {
+          path: "post",
+          component: Post
         }
       ]
     }
